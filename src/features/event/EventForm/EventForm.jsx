@@ -10,12 +10,24 @@ class EventForm extends Component {
     hostedBy: ""
   };
 
+  componentDidMount() {
+    if (this.props.selectedEvent != null) {
+      this.setState({
+        ...this.props.selectedEvent
+      });
+    }
+  }
+
   handleFormSubmit = event => {
     event.preventDefault();
     // console.log(this.refs.title.value);
     // <input ref='title' placeholder='Event Title' />
-    console.log(this.state);
-    this.props.createEvent(this.state);
+    // console.log(this.state);
+    if (this.state.id) {
+      this.props.updateEvent(this.state);
+    } else {
+      this.props.createEvent(this.state);
+    }
   };
 
   // handleInputChange = evt => {
@@ -25,7 +37,7 @@ class EventForm extends Component {
   // };
 
   //destructured
-  handleInputChange = ({target: {name, value}}) => {
+  handleInputChange = ({ target: { name, value } }) => {
     this.setState({
       [name]: value
     });
